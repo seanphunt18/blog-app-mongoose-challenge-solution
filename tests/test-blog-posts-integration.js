@@ -120,11 +120,11 @@ describe('Blog Posts API resource', function() {
           res = _res;
           res.should.have.status(200);
           // otherwise our db seeding didn't work
-          res.body.blogposts.should.have.length.of.at.least(1);
+          res.body.should.have.length.of.at.least(1);
           return BlogPost.count();
         })
         .then(function(count) {
-          res.body.blogposts.should.have.length.of(count);
+          res.body.should.have.length.of(count);
         });
     });
 
@@ -138,23 +138,23 @@ describe('Blog Posts API resource', function() {
         .then(function(res) {
           res.should.have.status(200);
           res.should.be.json;
-          res.body.blogposts.should.be.a('array');
-          res.body.blogposts.should.have.length.of.at.least(1);
+          res.body.should.be.a('array');
+          res.body.should.have.length.of.at.least(1);
 
-          res.body.blogposts.forEach(function(blogpost) {
+          res.body.forEach(function(blogpost) {
             blogpost.should.be.a('object');
             blogpost.should.include.keys(
               'id', 'author', 'content', 'title', 'created');
           });
-          resBlogPost = res.body.blogposts[0];
+          resBlogPost = res.body[0];
           return BlogPost.findById(resBlogPost.id);
         })
         .then(function(blogpost) {
 
           resBlogPost.id.should.equal(blogpost.id);
-          resBlogPost.author.should.equal(blogpost.author);
+          resBlogPost.author.should.equal(blogpost.authorName);
           resBlogPost.content.should.equal(blogpost.content);
-          resBlogPost.created.should.equal(blogpost.created);
+          resBlogPost.title.should.equal(blogpost.title);
         });
     });
   });
@@ -177,7 +177,8 @@ describe('Blog Posts API resource', function() {
           res.body.should.be.a('object');
           res.body.should.include.keys(
             'id', 'author', 'content', 'title', 'created');
-          res.body.author.should.equal(newBlogPost.author);
+          res.body.author.should.equal(
+            `${newBlogPost.author.firstName} ${newBlogPost.author.lastName}`);
           // cause Mongo should have created id on insertion
           res.body.id.should.not.be.null;
           res.body.content.should.equal(newBlogPost.content);
@@ -229,7 +230,8 @@ describe('Blog Posts API resource', function() {
           return BlogPost.findById(updateData.id).exec();
         })
         .then(function(blogpost) {
-          blogpost.author.should.equal(updateData.author);
+          blogpost.author.firstName.should.equal(updateData.author.firstName);
+          blogpost.author.lastName.should.equal(updateData.author.lastName);
           blogpost.content.should.equal(updateData.content);
           blogpost.title.should.equal(updateData.title);
         });
