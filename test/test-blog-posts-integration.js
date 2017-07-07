@@ -58,8 +58,8 @@ function seedBlogPostData() {
 function generateBlogPostData() {
   return {
     author: {
-      firstName: faker.random.first_name(),
-      lastName: faker.random.last_name()
+      firstName: faker.name.firstName(),
+      lastName: faker.name.lastName()
     },
     content: faker.lorem.paragraphs(),
     title: faker.lorem.sentence()
@@ -120,11 +120,11 @@ describe('Blog Posts API resource', function() {
           res = _res;
           res.should.have.status(200);
           // otherwise our db seeding didn't work
-          res.body.should.have.length.of.at.least(1);
+          res.body.posts.should.have.length.of.at.least(1);
           return BlogPost.count();
         })
         .then(function(count) {
-          res.body.should.have.length.of(count);
+          res.body.posts.should.have.lengthOf(count);
         });
     });
 
@@ -138,15 +138,15 @@ describe('Blog Posts API resource', function() {
         .then(function(res) {
           res.should.have.status(200);
           res.should.be.json;
-          res.body.should.be.a('array');
-          res.body.should.have.length.of.at.least(1);
+          res.body.posts.should.be.a('array');
+          res.body.posts.should.have.length.of.at.least(1);
 
-          res.body.forEach(function(blogpost) {
+          res.body.posts.forEach(function(blogpost) {
             blogpost.should.be.a('object');
             blogpost.should.include.keys(
               'id', 'author', 'content', 'title', 'created');
           });
-          resBlogPost = res.body[0];
+          resBlogPost = res.body.posts[0];
           return BlogPost.findById(resBlogPost.id);
         })
         .then(function(blogpost) {
@@ -225,7 +225,7 @@ describe('Blog Posts API resource', function() {
             .send(updateData);
         })
         .then(function(res) {
-          res.should.have.status(204);
+          res.should.have.status(201);
 
           return BlogPost.findById(updateData.id).exec();
         })
