@@ -1,11 +1,2 @@
 language: node_js
 node_js: node
-services:
-- mongodb
-deploy:
-  provider: heroku
-  api_key:
-    secure: p7T9mGplGZFmjxqLHbkWxRMVj7bcxyDBCALCLco6E7GVvZBvi7qGYZ09cB8wk97Go4u4btXEoJ9vZ86W+N9x62lxQa0J8h+0lbsEoAhBM+3u1P1jiKvagJCVDLbGdHD9xq7ZQPwZETMMUMZtHH1PVL7gFr7UrrI3Z3nhWMsdorvgEeM28RpFypaQdedaVpUnCgrCwOS15xfJvL7Gzjb0Hx0X2/pzzzOki4OGrL3Bbe3kBw1iWYvwMRtQFSapyKbWrjC81l/EbyZo26yWkRbQ9SIVTqr9wwsp4RK+vcSXdwc4KSy17cz5hjacqu48M36kZoMevpv+wXp3/tCdWflNZ/tYtYA/R9RC4amcAppTreU1eYaSdqoQxWEYkyXRxqZR2TyY1irzzyWS1iPO4xf2mYsbhysPS9ogJcaHDd1Ou4QFGwT8/dMZyhGFGFx5l7OFF8qTmT/Xsd4t5gOZUJ9SU1r0tgMnVhXKZE4Ef5ao79stcqRs6EzubC7/i6j+ERUBRrzGpdn10w+6Ac7HODyg1NgzDLjNrMFvEdWSpM9L3dG2mqANw6UKmuR9+GmnILHrl+quNLoP53f5M759gYbd6XA/buFvTuP7ZfQdZGJn0W+XCIxgggS+hTd3zdbfoLXeTXpzkD57hyuw2WgO2MVlEvwrHH13sXGZbMp/+HfMtLc=
-  app: dry-journey-88689
-  on:
-    repo: seanphunt18/blog-app-mongoose-challenge-solution
